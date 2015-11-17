@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com">
+<meta name="copyright" content="智能社 - zhinengshe.com">
+<title>智能社 - www.zhinengshe.com</title>
+<style>
+body{ color:#fff; font-weight:bold;}
+* { margin:0; padding:0; }
+div { position:absolute; top:0; right:0; background:#ccc; width:100px; height:100px;}
+input { position:absolute; top:50px; left:50px; width:150px; height:30px;}
+</style>
+<script>
+window.onload=function (){
+    var oDiv=document.getElementById('div1');
+    var oBtn=document.getElementById('btn');
+    var aPos=[];
+    var timer=null;
+
+    oBtn.onclick=function (){
+        timer=setInterval(function (){
+            var json=aPos.pop();
+            
+            if (aPos.length == 0)
+            {
+                clearInterval(timer);
+            }
+            
+            oDiv.style.left=json.left+'px';
+            oDiv.style.top=json.top+'px';
+        }, 30);
+    };
+
+    var timer=null;
+    
+    oDiv.onmousedown=function (ev){
+        var oEvent=ev || event;
+        var disX=oEvent.clientX-oDiv.offsetLeft;
+        var disY=oEvent.clientY-oDiv.offsetTop;
+        
+        document.onmousemove=function (ev){
+            var oEvent=ev || event;
+            
+            oDiv.style.left=oEvent.clientX-disX+'px';
+            oDiv.style.top=oEvent.clientY-disY+'px';
+        
+            var json={
+                'left' : oDiv.offsetLeft,
+                'top'  : oDiv.offsetTop
+            };
+            aPos.push(json);
+        };
+        
+        document.onmouseup=function (){
+            document.onmousemove=null;
+            document.onmouseup=null;
+            
+            oDiv.releaseCapture && oDiv.releaseCapture();
+        };
+        
+        oDiv.setCapture && oDiv.setCapture();
+        return false;
+    };
+};
+</script>
+</head>
+
+<body style="background:#444;">
+先拖动灰色得小块，之后再点按钮。
+    <input type="button" value="回放" id="btn" />
+    <div id="div1"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+

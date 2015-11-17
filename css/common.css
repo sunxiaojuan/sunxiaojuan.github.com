@@ -1,0 +1,54 @@
+    *{margin:0;padding:0;list-style: none;text-decoration: none;}
+    /*整体CSS样式*/
+    html, body,.totalBox { width:100%; height:100%; }
+    .totalBox{overflow: hidden;position: relative;}
+    .fl{float: left;}
+    .fr{float: right;}
+    .clearfix{content: "";clear:both;display: block;}
+    .page{width:100%;overflow: hidden;position: absolute;left:0;top:0;}
+    #page1,#page2,#page3,#page4{width:100%;height: 768px;position: relative;overflow: hidden;}
+    #page1{background: url(../images/ye1.jpg) no-repeat;background-size: cover;}
+    #page2{background: url(../images/shu.jpeg) no-repeat;background-size: cover;}
+    #page3{background: url(../images/shu2.jpg) no-repeat;background-size: cover;}
+     #page4{background: url(../images/b.jpg) no-repeat;background-size: cover;}
+    .door{position: absolute;width:100%;height:768px;z-index: 3;}
+    .door img{position:absolute;width:640px;height: 100%;}
+    .door #door1{transition:1s all ease;transform:perspective(800px) rotateY(0deg);left:0;top:0;background:red;}
+    .door #door2{transition:1s all ease;transform:perspective(800px) rotateY(0deg);right: 0;top:0;}
+    .door span{position:absolute;
+                left:50%;
+                top:50%;
+                margin-left:-100px;
+                margin-top:-50px;
+                width:200px;height: 100px;background: pink;font-size: 20px;line-height: 100px;text-align: center;cursor:pointer;
+        }
+    /*星星样式*/
+    .star1{width:90px;height: 90px;background:url(../images/star1.png) no-repeat;position: absolute;opacity:0;left:0;top:0;}
+    .star2{width:60px;height: 60px;background: url(../images/star2.png) no-repeat;position: absolute;opacity:0;left:0;top:0;}
+    .star3{width:40px;height: 40px;background: url(../images/star3.png) no-repeat;position: absolute;opacity:0;left:0;top:0;}
+    .star4{width:20px;height: 20px;background: url(../images/star4.png) no-repeat;position: absolute;opacity:0;left:0;top:0;}
+   /* .meteor1{width:100px;height:100px;background: url(images/meteor1.png) no-repeat;position: absolute;}*/
+    .meteor2{width:100px;height:100px;background: url(../images/meteor2.png) no-repeat;position: absolute;left:0;top:0;}
+    /*
+    ///////////////////////////////////第一页/////////////////////////
+     */
+    #page1 #intorduction{width:600px;height: 400px;position: absolute;left:200px;top:100px;}
+    #page1 #intorduction span{display: inline-block;width:40px;height: 40px;font-size: 25px;line-height:30px;color: yellow;text-shadow:0 0 3px rgba(255,0,0,1);opacity: 0;}
+    #page1 #ul1{width:410px;height: 40px;position: fixed;z-index:2;right:100px;top:50px;}
+    #page1 #ul1 li{position:relative;z-index:2;width:100px;height: 40px;float:left;font-size: 20px;text-align: center;line-height: 40px;color:#fff;text-shadow:0 0 5px rgba(255,0,0,1);font-weight: bold;z-index:3;}
+    #page1 #ul1 li.bg{position: absolute;z-index:1;left:0;top:0;background: #90F;}
+    #page1 #nav{width:15px;height:100px;position: fixed;right:50px;top:200px;z-index: 2;}
+    #page1 #nav span{display: inline-block;position:relative;z-index:3;width:15px;height: 15px;background: url(../images/list.png) no-repeat;margin-bottom:5px;}
+    #page1 #nav span#theOneNav{background: url(../images/list.png) no-repeat 0 -15px;}
+    i{position: absolute;width:100px;left:-100px;line-height: 30px;text-align: center;font-size: 20px;color: blue;margin-top: 5px;font-weight: bold;}
+    /*////////////////////第二页开始/////////////////*/
+    #ul2{margin:120px auto;width:90%;height: 400px;}
+    #ul2 li{display: none;}
+    #ul2 li a{width: 230px;height: 150px;float: left;margin:25px;position: relative;overflow: hidden;text-decoration: none;border-radius: 20px;}
+    #ul2 li a img{width:100%;height: 100%;border-radius: 20px;}
+    #ul2 li a i{width:100%;height: 100%;line-height:150px;background: pink;opacity: 0.8;position: absolute;left:-230px;top:0;border-radius: 20px;font-size: 30px;text-align: center;font-weight: normal;margin:0;}
+    #ul2 li.cur{display: block; }
+    #btn span{width:30px;height: 30px;background: pink;border-radius: 50%;position: absolute;top: 550px;text-indent: -999999px;}
+    #btn #prev{left:580px;}
+    #btn #next{left:630px;}
+    #btn .active{background: #3FF;}

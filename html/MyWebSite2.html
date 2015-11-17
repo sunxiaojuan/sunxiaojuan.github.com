@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{margin:0;padding:0;list-style: none;text-decoration: none;}
+    /*整体CSS样式*/
+    html, body,.totalBox { width:100%; height:100%}
+    .totalBox{overflow: hidden;position: relative;}
+
+    .page{width:100%;position: absolute;left:0;top:0;}
+    #page1,#page2,#page3,#page4{width:1280px;height: 768px;position: relative;}
+    #page1{background: url(images/ye1.jpg) no-repeat;background-size: cover;}
+    #page2{background: url(images/ye2.jpg) no-repeat;background-size: cover;}
+    #page3{background: url(images/xingkong.jpg) no-repeat;background-size: cover;}
+     #page4{background: url(images/xingkong2.jpg) no-repeat;background-size: cover;}
+    .door{position: absolute;width:100%;height: 100%;z-index: 2;}
+    .door img{position:absolute;width:640px;height: 100%;}
+    .door #door1{transition:1s all ease;transform:perspective(800px) rotateY(0deg);left:0;top:0;background:red;}
+    .door #door2{transition:1s all ease;transform:perspective(800px) rotateY(0deg);right: 0;top:0;}
+    .door span{position:absolute;
+                left:50%;
+                top:50%;
+                margin-left:-100px;
+                margin-top:-50px;
+                width:200px;height: 100px;background: pink;font-size: 20px;line-height: 100px;text-align: center;cursor:pointer;
+        }
+    /*星星样式*/
+    .star1{width:90px;height: 90px;background:url(images/star1.png) no-repeat;position: absolute;opacity:0;}
+    .star2{width:60px;height: 60px;background: url(images/star2.png) no-repeat;position: absolute;opacity:0;}
+    .star3{width:40px;height: 40px;background: url(images/star3.png) no-repeat;position: absolute;opacity:0;}
+    .star4{width:20px;height: 20px;background: url(images/star4.png) no-repeat;position: absolute;opacity:0;}
+   /* .meteor1{width:100px;height:100px;background: url(images/meteor1.png) no-repeat;position: absolute;}*/
+    .meteor2{width:100px;height:100px;background: url(images/meteor2.png) no-repeat;position: absolute;}
+    /*
+    ///////////////////////////////////第一页/////////////////////////
+     */
+    #page1 #intorduction{width:600px;height: 400px;position: absolute;left:200px;top:100px;}
+    #page1 #intorduction span{display: inline-block;width:40px;height: 40px;font-size: 25px;line-height:30px;color: yellow;text-shadow:0 0 3px rgba(255,0,0,1);opacity: 0;}
+    #page1 #ul1{width:410px;height: 40px;position: fixed;z-index:2;right:100px;top:50px;}
+    #page1 #ul1 li{position:relative;z-index:2;width:100px;height: 40px;float:left;font-size: 20px;text-align: center;line-height: 40px;color:#fff;text-shadow:0 0 5px rgba(255,0,0,1);font-weight: bold;z-index:3;}
+    #page1 #ul1 li.bg{position: absolute;z-index:1;left:0;top:0;background: #90F;}
+    #page1 #nav{width:15px;height:100px;position: fixed;right:50px;top:200px;z-index: 2;}
+    #page1 #nav span{display: inline-block;position:relative;z-index:3;width:15px;height: 15px;background: url(images/list.png) no-repeat;margin-bottom:5px;}
+    i{position: absolute;width:100px;left:-100px;line-height: 30px;text-align: center;font-size: 20px;color: yellow;margin-top: 5px;}
+    </style>
+    <script src="js/addMouseWheel.js"></script>
+    <script src="js/move.js"></script>
+    <script>
+         function ran(n,m){
+                return parseInt(n+Math.random()*(m-n));
+         };
+        window.onload=function(){
+            var oTotalBox=document.getElementById("totalBox");
+             var oPage=document.getElementById("page");
+             //门的样式
+            
+            var oSpan=document.getElementsByClassName("door")[0].   
+                        getElementsByTagName("span")[0];
+            var oDoor1=document.getElementById("door1");
+            var oDoor2=document.getElementById("door2");
+            // oSpan.onclick=function(){
+
+            //     oDoor1.style.transform="perspective(800px) rotateY(90deg)";
+            //     oDoor2.style.transform="perspective(800px) rotateY(-90deg)";
+            //     oSpan.style.display="none";
+            // };
+            
+        
+        //创键星星
+        /*
+            var oStar=document.getElementsByClassName("star")[0];
+            showStar=setInterval(function(){
+                var oStarMore=document.createElement("span");
+                oStarMore.className="star"+ran(1,5);
+                oTotalBox.appendChild(oStarMore);
+                oStarMore.style.left=ran(0,oTotalBox.offsetWidth-oStarMore.offsetWidth)+'px';
+                oStarMore.style.top=ran(0,oTotalBox.offsetHeight-oStarMore.offsetHeight)+'px';
+                move(oStarMore,{opacity:1},{duration:1000,complete:function(){
+                        setTimeout(function(){
+                            move(oStarMore,{opacity:0},{complete:function(){
+                                    oTotalBox.removeChild(oStarMore);
+                            }})
+                        }, 1000)
+                }})
+             },200)
+        //创建流星
+        showMetor1=setInterval(function(){
+            var oMetor=document.createElement("span");
+            oMetor.className="meteor2";
+            oTotalBox.appendChild(oMetor);
+            oMetor.style.left=ran(0,oTotalBox.offsetWidth-oMetor.offsetWidth)+'px';
+            oMetor.style.top=ran(0,oTotalBox.offsetHeight-oMetor.offsetHeight)+'px';
+            move(oMetor,{opacity:1},{duration:200,easing:Tween.Linear,complete:function(){
+                    oTotalBox.removeChild(oMetor);
+            }})
+        }, 1500);
+
+        showMetor2=setInterval(function(){
+            var oMetor=document.createElement("span");
+            oMetor.className="meteor2";
+            oTotalBox.appendChild(oMetor);
+            oMetor.style.left=ran(0,oTotalBox.offsetWidth-oMetor.offsetWidth)+'px';
+            oMetor.style.top=ran(0,oTotalBox.offsetHeight-oMetor.offsetHeight)+'px';
+            move(oMetor,{opacity:1},{duration:200,easing:Tween.Linear,complete:function(){
+                    oTotalBox.removeChild(oMetor);
+            }})
+        }, 3000);
+        
+/////////////////////////////////////第一页
+        
+        var aIntorationSpan=document.getElementById("intorduction").getElementsByTagName("span");
+        var iNum=0;
+        var intorationTimer=setInterval(function(){
+            move(aIntorationSpan[iNum],{opacity:1},{complete:function(){
+                if(iNum==aIntorationSpan.length){
+                     clearInterval(intorationTimer);
+                }
+            }})
+             iNum++;
+        },100);
+      
+       */
+      /*
+      首页几个链接
+       */ 
+        var speed=0;
+        var i=0;
+        var iNow=0;
+        function move2(obj,iTarget){
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                speed+=(iTarget-obj.offsetLeft)/5;
+                speed*=0.7;
+               // left+=speed;
+                obj.style.left=Math.round(speed)+obj.offsetLeft+'px';
+                if(obj.offsetLeft==iTarget&&Math.abs(speed)<1){
+                    clearInterval(obj.timer);
+                }
+            }, 30)
+        };
+       var oIndexUi=document.getElementById("ul1");
+       var aIndexUiLi=oIndexUi.children;
+       var oIndexDamo=aIndexUiLi[aIndexUiLi.length-1];
+       for (var i = 0; i < aIndexUiLi.length-1; i++) {
+        (function(index){
+            aIndexUiLi[i].onmouseover=function(){
+                move2(oIndexDamo,this.offsetLeft)
+                tabSwitch(index)
+               
+            }
+        })(i)
+       };
+      /*
+        右侧导航条
+       */
+      var oNav=document.getElementById("nav");
+      var aNavList=oNav.children;
+      var arr=["首页","个人作品","小游戏","联系我吧"];
+      for (var i = 0; i < aNavList.length; i++) {
+        (function(index){
+            aNavList[i].onmouseover=function(){
+                var aI=oNav.getElementsByTagName("i");
+                for (var i = 0; i < aI.length; i++) {
+                   oNav.removeChild(aI[i]);
+                };
+                var oI=document.createElement("i");
+                oI.style.top=index*20+"px";
+                oI.innerHTML=arr[index];
+                oNav.appendChild(oI);
+                for (var i = 0; i < aNavList.length; i++) {
+                    aNavList[i].style.backgroundPositionY=0;
+                };
+                this.style.backgroundPositionY="-15px";
+                tabSwitch(index)
+            }
+            aNavList[i].onmouseout=function(){
+                var aI=oNav.getElementsByTagName("i");
+                for (var i = 0; i < aI.length; i++) {
+                   oNav.removeChild(aI[i]);
+                };
+                // for (var i = 0; i < aNavList.length; i++) {
+                //    aNavList[i].style.backgroundPositionY=0;
+                // };
+            }
+        })(i)
+      };
+
+      //滚轮滚动
+      var iDown=0;
+      addMouseWheel(oTotalBox,function(down){
+            if(down){
+                iDown++;
+               if(iDown==4){
+                    iDown=3;
+               }
+                tabSwitch(iDown)
+            }else{
+                iDown--;
+                if(iDown==-1){
+                    iDown=0;
+                }
+                 tabSwitch(iDown)
+            }
+      })
+
+     //封装tabSwitch
+      function tabSwitch(index){
+        oPage.style.top=-index*oPage.children[0].offsetHeight+"px";
+      }
+    }    
+
+    </script>
+</head>
+<body>
+    <div class="totalBox" id="totalBox">
+        <div class="door">
+            <!-- <img src="images/10.jpg" id="door1" >
+            <img src="images/14.jpg" id="door2">
+            <span>点击进入</span> -->
+        </div>
+        <div class="page" id="page">
+            <div id="page1">
+                <div class="star"></div>
+                <div id="intorduction">
+                    <span>&nbsp;</span><span>&nbsp;</span><span>欢</span><span>迎</span><span>来</span><span>到</span><span>我</span><span>的</span><span>个</span><span>人</span><span>网</span><span>站</span><span>,</span><span>这</span><span>里</span><span>展</span><span>示</span><span>我</span><span>的</span><span>部</span><span>分</span><span>作</span><span>品</span><span>及</span><span>技</span><span>术</span><span>水</span><span>平</span><span>,</span><span>由</span><span>于</span><span>时</span><span>间</span><span>有</span><span>限</span><span>,</span><span>未</span><span>能</span><span>全</span><span>部</span><span>兼</span><span>容</span><span>低</span><span>级</span><span>浏</span><span>览</span><span>器</span>
+                    </span><span>,</span><span>请</span><span>用</span><span>Chrome</span><span>&nbsp;</span><span>等</span><span>高</span><span>级</span><span>浏</span><span>览</span><span>器</span><span>打</span><span>开</span><span>。</span><span>若</span><span>您</span><span>觉</span><span>得</span><span>我</span><span>符</span><span>合</span><span>您</span><span>的</span><span>要</span><span>求</span><span>,</span><span>请</span><span>与</span><span>我</span><span>联</span><span>系</span><span>吧</span><span>!</span>
+                </div>
+                <ul id="ul1">
+                    <li>首页</li>
+                    <li>个人作品</li>
+                    <li>小游戏</li>
+                    <li>联系我吧</li>
+                    <li class="bg" ></li>
+                </ul>
+                <div id="nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div id="page2">
+                <!-- <img src="images/ye2.jpg"> -->
+            </div>
+            <div id="page3">
+                <!-- <img src="images/xingkong.jpg"> -->
+            </div>
+            <div id="page4">
+                <!-- <img src="images/xingkong.jpg"> -->
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>

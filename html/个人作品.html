@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人作品</title>
+    <style>
+    *{margin:0;padding: 0;list-style: none;}
+    #ul3{margin:60px auto;width:90%;height: 400px;}
+    #ul3 li{display: none;}
+    #ul3 li a{width: 230px;height: 150px;float: left;margin:25px;position: relative;overflow: hidden;text-decoration: none;border-radius: 20px;}
+    #ul3 li a img{width:100%;height: 100%;border-radius: 20px;}
+    #ul3 li a i{width:100%;height: 100%;line-height:150px;background: pink;opacity: 0.7;position: absolute;left:-230px;top:0;border-radius: 20px;font-size: 30px;text-align: center;font-weight: normal;}
+    #ul3 li.cur{display: block; }
+    #btn span{width:30px;height: 30px;background: pink;border-radius: 50%;position: absolute;top: 500px;text-indent: -999999px;}
+    #btn #prev{left:580px;}
+    #btn #next{left:630px;}
+    #btn .active{background: #3FF;}
+    </style>
+    <script src="../js/move2.js"></script>
+    <script>
+    window.onload=function(){
+        var oUl3=document.getElementById("ul3");
+        var oUl3Li=oUl3.children;
+        var aAnchor=document.getElementsByTagName("a");
+        var oBtn=document.getElementById("btn");
+        var oBtnSpan=oBtn.children;
+        //选项卡切换
+        for (var i = 0; i < oBtnSpan.length; i++) {
+            oBtnSpan[i].index=i;
+             oBtnSpan[i].onmouseover=function(){
+                for (var i = 0; i < oBtnSpan.length; i++) {
+                    oBtnSpan[i].className="";
+                    oUl3Li[i].className="";
+                };
+                this.className="active";
+                oUl3Li[this.index].className="cur";
+            };
+        };
+        function getPos(obj){
+            var l=0;
+            var t=0;
+            while(obj){
+                l+=obj.offsetLeft;
+                t+=obj.offsetTop;
+                obj=obj.offsetParent;
+            }
+            return {left:l,top:t}
+        };
+        function getDir(obj,oEvent){
+            var x=oEvent.clientX-getPos(obj).left-obj.offsetWidth/2;
+            var y=getPos(obj).top+obj.offsetHeight/2-oEvent.clientY;
+            return Math.round((Math.atan2(y,x)*180/Math.PI+180)/90)%4;
+        };
+
+        for (var i = 0; i < aAnchor.length; i++) {
+                lagou(aAnchor[i])
+        };
+
+        function lagou(obj){
+            obj.onmouseover=function(ev){
+                var oEvent=ev||event;
+                var oI=this.children[1];
+                var oFrom=oEvent.fromElement||oEvent.relatedTarget;
+                if(oFrom&&obj.contains(oFrom))return;
+                var n=getDir(obj,oEvent);
+                switch(n){
+                    case 0:
+                        oI.style.left="-230px";
+                        oI.style.top=0;
+                        break;
+                    case 1:
+                        oI.style.left=0;
+                        oI.style.top="150px";
+                        break;
+                    case 2:
+                        oI.style.left="230px";
+                        oI.style.top=0;
+                        break;
+                    case 3:
+                        oI.style.left=0;
+                        oI.style.top="-150px";
+                        break;
+                }
+                move(oI,{left:0,top:0})
+            };
+            obj.onmouseout=function(ev){
+                var oEvent=ev||event;
+                var oI=this.children[1];
+                var oTo=oEvent.toElement||oEvent.relatedTarget;
+                if(oTo&&obj.contains(oTo))return;
+                var n=getDir(obj,oEvent);
+                switch(n){
+                    case 0:
+                        move(oI,{left:-230,top:0})
+                        break;
+                    case 1:
+                        move(oI,{left:0,top:150})
+                        break;
+                    case 2:
+                        move(oI,{left:230,top:0})
+                        break;
+                    case 3:
+                        move(oI,{left:0,top:-150})
+                        break;      
+                     }
+               };
+            }
+
+           
+    }
+    </script>
+</head>
+<body>
+    <ul id="ul3">
+        <li id="li1" class="cur"><a href="aaaa"><img src="../images/w1.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w2.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w3.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w4.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w5.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w6.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w7.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w8.jpg"><i>无缝滚动</i></a></li>
+        <li id="li2"><a href="aaaa"><img src="../images/w9.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w10.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w11.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w15.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w13.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w14.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w4.jpg"><i>无缝滚动</i></a><a href="aaaa"><img src="../images/w16.jpg"><i>无缝滚动</i></a></li>
+    </ul>
+    <div id="btn">
+            <span id="prev" class="active">当前页</span>
+            <span id="next">后一页</span>
+    </div>
+</body>
+</html>

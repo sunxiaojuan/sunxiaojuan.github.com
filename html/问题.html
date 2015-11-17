@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    *{margin:0;padding:0;list-style: none;}
+    #totalBox{position: relative;}
+    #page{width:100%;position: absolute;left:0;top:0;}
+    #div1,#div2,#div3{position: relative;}
+    #div1{width:1280px;height: 768px;font-size: 70px;}
+    #div2{width:1280px;height: 768px;background: green;font-size: 70px;}
+
+    #div3{width:1280px;height:768px;background: yellow;font-size: 70px;}
+    #ul1{position:fixed;right:100px;top:50px;width:330px;height: 60px;}
+    #ul1 li{position:relative;width:100px;height: 60px;float:left;font-size: 20px;border: 1px solid pink;line-height: 60px;text-align: center;z-index: 2}
+    #ul1 li#damo{background: pink;position: absolute;left:0;top:0;z-index: 1}
+     #nav{width:15px;height:100px;position: fixed;right:50px;top:200px;z-index: 2;}
+     #nav span{display: inline-block;position:relative;z-index:3;width:15px;height: 15px;background: url(images/list.png); no-repeat;margin-bottom:5px;}
+    i{position: absolute;width:100px;left:-100px;line-height: 30px;text-align: center;font-size: 20px;color: yellow;margin-top: 5px;}
+    </style>
+    <script type="text/javascript" src="js/addMouseWheel.js"></script>
+    <script type="text/javascript">
+    var speed=0;
+    function move2(obj,iTarget){
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                speed+=(iTarget-obj.offsetLeft)/5;
+                speed*=0.7;
+               // left+=speed;
+                obj.style.left=Math.round(speed)+obj.offsetLeft+'px';
+                if(obj.offsetLeft==iTarget&&Math.abs(speed)<1){
+                    clearInterval(obj.timer);
+                }
+            }, 30)
+        };
+    window.onload=function(){
+        var oToalBox=document.getElementById("totalBox");
+        var oPage=document.getElementById("page");
+        var aDiv=oPage.children;
+        var oUl=document.getElementById("ul1");
+        var aLi=oUl.children;
+        var oDamo=document.getElementById("damo");
+        var iNow=0;
+        var left=0;
+        for (var i = 0; i < aLi.length-1; i++) {
+            aLi[i].index=i;
+            aLi[i].onmouseover=function(){
+               iNow=this.index;
+               left=this.offsetLeft;
+               aaa(left);
+               bbb(iNow)
+            }
+        };
+       
+        function aaa(b){
+            move2(oDamo,b)
+            tabSwitch(iNow);
+        }
+
+        //右侧导航
+        var oNav=document.getElementById("nav");
+      var aNavList=oNav.children;
+      var arr=["首页","个人作品","小游戏","联系我吧"];
+      for (var i = 0; i < aNavList.length; i++) {
+        (function(index){
+            aNavList[i].onmouseover=function(){
+                iNow=index;
+                bbb(iNow)
+            }
+            aNavList[i].onmouseout=function(){
+                var aI=oNav.getElementsByTagName("i");
+                for (var i = 0; i < aI.length; i++) {
+                   aI[i].innerHTML="";
+                };
+            }
+        })(i)
+       };
+
+       function bbb(iNow){
+        var aI=oNav.getElementsByTagName("i");
+                for (var i = 0; i < aI.length; i++) {
+                   oNav.removeChild(aI[i]);
+                };
+                console.log(iNow)
+                var oI=document.createElement("i");
+                oI.style.top=iNow*20+"px";
+                oI.innerHTML=arr[iNow];
+                oNav.appendChild(oI);
+                for (var i = 0; i < aNavList.length; i++) {
+                    aNavList[i].style.backgroundPositionY=0;
+                };
+                aNavList[iNow].style.backgroundPositionY="-15px";
+                //tabSwitch(iNow);
+                left=iNow*aLi[0].offsetWidth;
+                 aaa(left);
+       }
+       //滚动
+       addMouseWheel(oToalBox,function(down){
+            if(down){
+                iNow++;
+               if(iNow==3){
+                    iNow=2;
+               }
+            }else{
+                iNow--;
+                if(iNow==-1){
+                    iNow=0;
+                }
+            }
+           // tabSwitch(iNow);
+           left=iNow*aLi[0].offsetWidth;
+            aaa(left);
+            bbb(iNow)
+      })
+
+       function tabSwitch(index){
+        oPage.style.top=-index*oPage.children[0].offsetHeight+"px";
+      }
+    }
+    </script>
+</head>
+<body>
+<div id="totalBox">
+    <div id="page">
+        <div id="div1">11111</div>
+        <div id="div2">2222</div>
+        <div id="div3">3333</div>
+    </div>
+    <ul id="ul1">
+            <li>aaaa</li>
+            <li>bbbb</li>
+            <li>cccc</li>
+            <li id="damo"></li>
+    </ul>
+    <div id="nav">
+            <span></span>
+            <span></span>
+            <span></span>
+     </div>
+ </div>
+</body>
+</html>
